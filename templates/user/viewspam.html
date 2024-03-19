@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: #dc3545;
+            padding-top: 30px;
+        }
+        .table-primary{
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Spam Messages</h1>
+    <div class="container mt-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sender name</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in spam %}
+                <tr>
+                    <td>{{i.Sender_id.Username}}</td>
+                    <td>{{i.Message}}</td>
+                    <td>{{i.Subject}}</td>
+                    <td>{{i.Date}}</td>
+                    <td>{{i.Time}}</td>
+                    <td><a href="{% url 'delete_spam' i.id%}" class="btn btn-danger">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

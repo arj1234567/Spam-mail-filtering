@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#hobby").change(function () {
+                var hobby = $("#hobby").val();
+                $.ajax({
+                    url: "{% url 'getfactor'%}",
+                    data: { 'hob': hobby },
+                    success: function (data) {
+                        $("#factor").html(data)
+                    }
+                })
+            })
+        })
+    </script>
+    <script type="text/javascript">
+        function validation() {
+            var hobby = document.getElementById("hobby");
+
+            if (hobby.value.length == 0) {
+                alert("Select hobby");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            width: 60%;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        .form-select{
+            width: 60%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Hobbies</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'customerhobbyAction'%}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="hobby" class="form-label">Hobby</label>
+                <select name="hobby" id="hobby" class="form-select">
+                    <option value="">-- Select Hobby --</option>
+                    {% for i in hobby %}
+                        <option value="{{i.id}}">{{i.Hobbyname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="factor" class="form-label">Factor</label>
+                <select name="factor" id="factor" class="form-select">
+                    <option>-- Select Factor --</option>
+                </select>
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary" value="Add" onclick="return validation()">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

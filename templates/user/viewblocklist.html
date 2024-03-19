@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: #dc3545;
+            padding-top: 30px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .btn-danger {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            color: #fff;
+            background-color: #bb2d3b;
+            border-color: #bb2d3b;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">BLOCKLIST</h1>
+    <div class="container mt-5">
+        <table class="table table-hover ">
+            {% if viewblocklist %}
+            <thead class="text-primary">
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Remark</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in viewblocklist %}
+                <tr style="font-family: cursive;">
+                    <td>{{i.Contact_id.Username}}</td>
+                    <td>{{i.Name}}</td>
+                    <td>{{i.Date}}</td>
+                    <td>{{i.Time}}</td>
+                    <td>{{i.Remark}}</td>
+                    <td><a href="{% url 'delete_blocklist' i.id %}" class="btn btn-danger">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% else %}
+            <tr>
+                <td colspan="6">Nothing to Display.....</td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert("{{msg}}")
+    </script>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
+

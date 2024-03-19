@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-message</title>
+    <link rel="stylesheet" href="static\css\bootstrap.css">
+</head>
+<style>
+    #container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        margin-top: 50px;
+        width: 70%;
+        
+    }
+</style>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="text-danger" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Welcome to E-message</h1>
+                <p class="lead">Your go-to platform for secure and seamless messaging</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4" id="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <a href="{% url 'register'%}" class="text-decoration-none">
+                    <span class="text-center text-primary" style="font-size: x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Register</span>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <a href="{% url 'login'%}" class="text-decoration-none">
+                    <span class="text-center text-primary" style="font-size: x-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Login</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">Why Choose E-message?</h2>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <h4 class="text-secondary">Secure Messaging</h4>
+                <p>Our platform ensures safety messaging for the security of your messages.</p>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-secondary">User-Friendly Interface</h4>
+                <p>Enjoy a smooth and intuitive user experience with our easy-to-navigate interface.</p>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-secondary">Multi-Platform Support</h4>
+                <p>Access your messages anytime, anywhere with our support for various devices.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="static\js\bootstrap.js"></script>
+
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert("{{msg}}")
+    </script>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
+
+
+
+
+

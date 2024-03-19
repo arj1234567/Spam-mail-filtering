@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome User</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.js"></script>
+    <style>
+        body {
+            background-color: gainsboro;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            width: 70%;
+        }
+
+        h1 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+
+        .list-group {
+            padding: 0;
+        }
+
+        .list-group-item a {
+            display: block;
+            padding: 15px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: cursive;
+            margin-bottom: 10px; 
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .list-group-item a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome User</h1>
+        <div class="list-group">
+            <div class="list-group-item"><a href="{% url 'send_message' %}" class="text-decoration-none">Send Mail</a></div>
+            <div class="list-group-item"><a href="{% url 'view_sendmsg'%}" class="text-decoration-none">SendBox</a></div>
+            <div class="list-group-item"><a href="{% url 'view_recievedmsg'%}" class="text-decoration-none">Inbox</a></div>
+            <div class="list-group-item"><a href="{% url 'viewtrash'%}" class="text-decoration-none">Trash</a></div>
+            <div class="list-group-item"><a href="{% url 'addcontact'%}" class="text-decoration-none">Add Contact</a></div>
+            <div class="list-group-item"><a href="{% url 'addblocklist'%}" class="text-decoration-none">Add Blocklist</a></div>
+            <div class="list-group-item"><a href="{% url 'viewcontact' %}" class="text-decoration-none">Contacts</a></div>
+            <div class="list-group-item"><a href="{% url 'viewblocklist'%}" class="text-decoration-none">Blocklist</a></div>
+            <div class="list-group-item"><a href="{% url 'addcustomerhobby'%}" class="text-decoration-none">Add Hobby</a></div>
+            <div class="list-group-item"><a href="{% url 'customeragefactor'%}" class="text-decoration-none">Add Age</a></div>
+            <div class="list-group-item"><a href="{% url 'customerseasonfactor'%}" class="text-decoration-none">Add Season</a></div>
+            <div class="list-group-item"><a href="{% url 'viewspam'%}" class="text-decoration-none">Spam</a></div>
+            <div class="list-group-item"><a href="{% url 'updateprofile'%}" class="text-decoration-none">Update profile</a></div>
+            <div class="list-group-item"><a href="{% url 'userchangepassword'%}" class="text-decoration-none">Change Password</a></div>
+            <div class="list-group-item"><a href="{% url 'logout'%}" class="text-decoration-none">LogOut</a></div>
+        </div>
+    </div>
+    {% if messages %}
+        {% for msg in messages %}
+            <script>
+                alert("{{msg}}")
+            </script>
+        {% endfor %}
+    {% endif %}
+</body>
+
+</html>
+

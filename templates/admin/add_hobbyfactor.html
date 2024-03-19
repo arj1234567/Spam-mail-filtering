@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hobby Factor</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function validation() {
+            var alpha = /^[a-zA-Z\s]+$/;
+            var hobby = document.getElementById("hobby");
+            var factor = document.getElementById("factor");
+
+            if (hobby.value.length === 0) {
+                alert("Please select a hobby");
+                return false;
+            } else if (factor.value.length === 0) {
+                alert("Please enter a hobby factor");
+                return false;
+            } else if (!factor.value.match(alpha)) {
+                alert("Invalid factor name");
+                factor.focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+        }
+        .form-control{
+            width: 40%;
+        }
+        .form-select{
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Hobby factors</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'add_hobbyfactorAction'%}" onsubmit="return validation()">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="hobby" class="form-label text-primary">Hobby</label>
+                <select class="form-select" id="hobby" name="hobby" required>
+                    <option value="" disabled selected>--- Select Hobby ---</option>
+                    {% for i in hob %}
+                    <option value="{{i.id}}">{{i.Hobbyname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="factor" class="form-label text-primary">Factor</label>
+                <input type="text" class="form-control" id="factor" name="factor" required>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#contact").change(function () {
+                var contact = $("#contact").val();
+                $.ajax({
+                    url: "{% url 'getcontact'%}",
+                    data: { 'con': contact },
+                    success: function (data) {
+                        if (data.valid != "exist") {
+                            alert("Contact not exist");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        function validation() {
+            var alpha = /^[a-z A-Z]+$/;
+            var contact = document.getElementById("contact");
+            var name = document.getElementById("name");
+            var remark = document.getElementById("remark");
+
+            if (name.value.length == 0) {
+                alert("Enter name");
+                return false;
+            } else if (!name.value.match(alpha)) {
+                alert("Invalid name");
+                name.focus();
+                return false;
+            } else if (remark.value.length == 0) {
+                alert("Enter remark");
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: bisque;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: #dc3545;
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        label {
+            font-family: cursive;
+            font-weight: bolder;
+        }
+
+        .form-control {
+            width: 100%;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .btn-outline-primary {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Contacts</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'addcontactAction'%}">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="contact" class="col-sm-2 col-form-label text-primary">Contact</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="contact" name="contact">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="name" class="col-sm-2 col-form-label text-primary">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="remark" class="col-sm-2 col-form-label text-primary">Remark</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="remark" name="remark">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-10 offset-sm-2">
+                    <input type="submit" class="btn btn-outline-primary" value="Add" onclick="return validation()">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+

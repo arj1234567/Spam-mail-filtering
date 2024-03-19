@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Hobby</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.js"></script>
+    <script type="text/javascript">
+        function validation() {
+            var alpha = /^[a-zA-Z\s]+$/;
+            var hobby = document.getElementById("hobby");
+
+            if (hobby.value.length === 0) {
+                alert("Please enter a hobby");
+                return false;
+            } else if (!hobby.value.match(alpha)) {
+                alert("Invalid Hobby");
+                hobby.focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        .form-control{
+            width: 40%;
+        }
+
+    </style>
+</head>
+
+<body>
+        <h1 class="text-danger text-center">Add Hobbies</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'add_hobbyAction' %}" onsubmit="return validation()">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="hobby" class="form-label text-primary">Hobby</label>
+                <input type="text" class="form-control" id="hobby" name="hobby" required>
+            </div>
+            <button type="submit" class="btn btn- btn-outline-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
+

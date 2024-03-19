@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            width: 60%;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        .form-select{
+            width: 60%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Season Factor</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'customerseasonAction'%}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="factor" class="form-label text-primary">Select Season Factor</label>
+                <select name="factor" id="factor" class="form-select" required>
+                    <option value="">-- Select --</option>
+                    {% for i in seasonfactor %}
+                    <option value="{{i.Season_factor_id_id}}">{{i.Season_factor_id.Season_factorname}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Add" class="btn btn-outline-primary">
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+

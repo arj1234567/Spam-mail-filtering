@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.min.css">
+    <script src="\static\js\bootstrap.bundle.min.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#season").change(function(){
+                var season = $("#season").val();
+                $.ajax({
+                    url:"{% url 'getseasonfactor'%}",
+                    data:{'s':season},
+                    success:function(data){
+                        $("#factor").html(data)
+                    }
+                })
+            })
+        })
+        $(document).ready(function(){
+            $("#country").change(function(){
+                var country = $("#country").val();
+                $.ajax({
+                    url:"{% url 'getState'%}",
+                    data:{'co':country},
+                    success:function(data){
+                        $("#state").html(data)
+                    }
+                })
+            })
+
+        })
+    </script>
+    <script type="text/javascript">
+        function validation(){
+            var season = document.getElementById("season")
+            var country = document.getElementById("country")
+            var month = document.getElementById("month")
+
+            if(season.value.length == 0){
+                alert("select season");
+                return false;
+            }
+
+            else if(country.value.length == 0){
+                alert("select country");
+                return false;
+            }
+
+            else if(month.value.length == 0){
+                alert("select month");
+                return false;
+            }
+
+            else{
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        .form-control{
+            width: 40%;
+        }
+        .form-select{
+            width:40%
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Season Country Factor</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'seasoncountryAction' %}" onsubmit="return validation()">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <label for="season" class="col-sm-2 col-form-label text-primary">Season</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="season" name="season" required>
+                        <option value="">--select--</option>
+                        {% for i in season %}
+                        <option value="{{i.id}}">{{i.Season_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="factor" class="col-sm-2 col-form-label text-primary">Factor</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="factor" name="factor" required>
+                        <option>---select---</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="country" class="col-sm-2 col-form-label text-primary">Country</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="country" name="country" required>
+                        <option value="">---select---</option>
+                        {% for j in country %}
+                        <option value="{{j.id}}">{{j.Country_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="state" class="col-sm-2 col-form-label text-primary">State</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="state" name="state" required>
+                        <option>--select--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="month" class="col-sm-2 col-form-label text-primary">Month</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="month" name="month" required>
+                        <option value="">---select---</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col-sm-10 offset-sm-2">
+                    <input type="submit" class="btn btn-outline-primary" value="add">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+

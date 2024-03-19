@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Season Factor</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function validation() {
+            var alpha = /^[a-zA-Z\s]+$/;
+            var season = document.getElementById("season");
+            var factor = document.getElementById("factor");
+
+            if (season.value.length === 0) {
+                alert("Please select a season");
+                return false;
+            } else if (factor.value.length === 0) {
+                alert("Please enter a season factor");
+                return false;
+            } else if (!factor.value.match(alpha)) {
+                alert("Invalid season factor");
+                factor.focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        h1{
+            padding-top: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        label{
+            font-family: cursive;
+            font-weight: bolder;
+            font-size: larger;
+        }
+        .form-control{
+            width: 40%;
+        }
+        .form-select{
+            width:40%
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Add Season factor</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'add_seasonfactorAction'%}" onsubmit="return validation()">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="season" class="form-label text-primary">Season</label>
+                <select class="form-select" id="season" name="season" required>
+                    <option value="" disabled selected>--- Select Season ---</option>
+                    {% for i in seas %}
+                    <option value="{{i.id}}">{{i.Season_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="factor" class="form-label text-primary">Factor</label>
+                <input type="text" class="form-control" id="factor" name="factor" required>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
+

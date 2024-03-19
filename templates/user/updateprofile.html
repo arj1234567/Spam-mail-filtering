@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#country").change(function () {
+                var co = $("#country").val();
+                $.ajax({
+                    url: "{% url 'getstate'%}",
+                    data: { 'c': co },
+                    success: function (data) {
+                        $("#state").html(data)
+                    }
+                })
+            })
+        })
+    </script>
+    <style>
+        body {
+            background-color:bisque;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+            width: 70%;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: #dc3545;
+            padding-top: 30px;
+        }
+
+        .btn-outline-primary {
+            margin-top: 15px;
+        }
+        .form-select-input{
+            margin-bottom: 20px;
+            width: 80%;
+        }
+        .form-control{
+            width: 80%;
+        }
+        .form-check{
+            font-weight:500;
+        }
+        .table{
+            font-family: cursive;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">Profile</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'updateprofileAction' %}">
+            {% csrf_token %}
+            <table class="table text-center text-primary">
+                {% for i in prof %}
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" name="name" value="{{i.Name}}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <td style="color: black;">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="gender" value="female" {% if i.Gender == "female" %}checked{% endif %} class="form-check-input"> Female
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="gender" value="male" {% if i.Gender == "male" %}checked{% endif %} class="form-check-input"> Male
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date of Birth</th>
+                    <td><input type="text" name="dob" value="{{i.DOB}}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td><textarea name="address" rows="5" cols="20" class="form-control">{{i.Address}}</textarea></td>
+                </tr>
+                <tr>
+                    <th>Country</th>
+                    <td><select name="country" id="country" class="form-control">
+                            <option value="{{i.Country_id_id}}">{{i.Country_id.Country_name}}</option>
+                            {% for k in cntry %}
+                            <option value="{{k.id}}">{{k.Country_name}}</option>
+                            {% endfor %}
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>State</th>
+                    <td><select name="state" id="state" class="form-control">
+                            <option value="{{i.State_id_id}}">{{i.State_id.State_name}}</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td><input type="number" name="phone" value="{{i.Phone}}" class="form-control"></td>
+                </tr>
+
+                <tr>
+                    <th>Hobby</th>
+                    <td style="color: black;"> 
+                        {% for j in hobs %}
+                        <div class="form-check">
+                            <input type="checkbox" name="hobby" value="{{j.id}}"
+                                {% for k in hob %}
+                                {% if k.Hobby_id_id == j.id %}
+                                checked
+                                {% endif %}
+                                {% endfor %}
+                                class="form-check-input">
+                            <label class="form-check-label">{{j.Hobbyname}}</label>
+                        </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Security Question</th>
+                    <td><select name="security" id="security" class="form-control">
+                            <option value="{{i.Security_question}}">{{i.Security_question}}</option>
+                            <option value="Your pets name">Your pets name</option>
+                            <option value="Favourite player">Favourite player</option>
+                            <option value="Favourite sports">Favourite sports</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <th>Answer</th>
+                    <td><input type="text" name="answer" value="{{i.Answer}}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <th>Username</th>
+                    <td><input type="text" name="username" value="{{i.Username}}" class="form-control"></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td><input type="submit" value="update" class="btn btn-outline-primary"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </div>
+</body>
+
+</html>
+

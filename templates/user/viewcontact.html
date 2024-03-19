@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <style>
+        body{
+            background-color: bisque;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: bolder;
+            color: #dc3545;
+            padding-top: 30px;
+        }
+        .table-primary{
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center text-danger">CONTACTS</h1>
+    <div class="container mt-5">
+        <form method="post" action="{% url 'movetoblocklist'%}">
+            {% csrf_token %}
+            <table class="table table-hover">
+                {% if contact %}
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Remark</th>
+                        <th scope="col">Actions</th>
+                        <th scope="col">Move to Blocklist</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in contact %}
+                    <tr>
+                        <td>{{i.Contact_id.Username}}</td>
+                        <td>{{i.Name}}</td>
+                        <td>{{i.Date}}</td>
+                        <td>{{i.Time}}</td>
+                        <td>{{i.Remark}}</td>
+                        <td><a href="{% url 'delete_contact' i.id%}" class="btn btn-danger">Delete</a></td>
+                        <td><input type="checkbox" name="blocklist" value="{{i.id}}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="text-center">
+                    <tr>
+                        <td colspan="7">
+                            <input type="submit" class="btn btn-primary" value="Move to Blocklist">
+                        </td>
+                    </tr>
+                </tfoot>
+                {% else %}
+                <tr>
+                    <td colspan="7">Nothing to Display...</td>
+                </tr>
+                {% endif %}
+            </table>
+        </form>
+    </div>
+
+    {% if messages %}
+    {% for msg in messages%}
+    <script>
+        alert("{{msg}}")
+    </script>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
+
+
+
+

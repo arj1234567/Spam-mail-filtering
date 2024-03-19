@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Menu</title>
+    <link rel="stylesheet" href="\static\css\bootstrap.css">
+    <script src="\static\js\bootstrap.js"></script>
+    <style>
+        body {
+            background-color: gainsboro;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-weight: bolder;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            color: #dc3545;
+            margin-bottom: 30px;
+        }
+
+        .menu-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .menu-item {
+            margin-bottom: 15px;
+        }
+
+        .menu-item a {
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            
+        }
+
+        .menu-item a:hover {
+            background-color: #d3e812;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-danger">Welcome to Admin Menu</h1>
+        <ul class="menu-list">
+            <li class="menu-item"><a href="{% url 'add_hobby' %}">Add Hobby</a></li>
+            <li class="menu-item"><a href="{% url 'add_hobbyfactor' %}">Add Hobby Factor</a></li>
+            <li class="menu-item"><a href="{% url 'add_season' %}">Add Season</a></li>
+            <li class="menu-item"><a href="{% url 'add_seasonfactor' %}">Add Season Factor</a></li>
+            <li class="menu-item"><a href="{% url 'add_seasoncountry' %}">Add Season Country</a></li>
+            <li class="menu-item"><a href="{% url 'addagefactor'%}">Add Age Factor</a></li>
+            <li class="menu-item"><a href="{% url 'changepassword'%}">Change Password</a></li>
+        </ul>
+    </div>
+
+    {% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert('{{msg}}')
+    </script>
+    {% endfor %}
+    {% endif %}
+</body>
+
+</html>
+
+
